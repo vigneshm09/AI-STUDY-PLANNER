@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Study Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- jsPDF -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #5a67d8;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2>📚 AI Study Planner</h2>
+
+  <input type="email" id="email" placeholder="Enter your Email" />
+  <input type="text" id="subject" placeholder="Enter Subject" />
+  <input type="date" id="exam_date" />
+
+<button onclick="submitData()">Generate Plan</button>
+
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+async function submitData() {
+  const email = document.getElementById("email").value;
+  const subject = document.getElementById("subject").value;
+  const examDate = document.getElementById("exam_date").value;
+  const status = document.getElementById("status");
+
+  if (!email || !subject || !examDate) {
+    status.innerText = "⚠️ Please fill all fields";
+    return;
+  }
+
+  status.innerText = "⏳ Generating your study plan...";
+
+  try {
+    const response = await fetch("http://localhost:5678/webhook/study-plan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        subject: subject,
+        exam_date: examDate
+      })
+    });
+
+    const data = await response.json(); // 🔥 IMPORTANT
+
+    // ✅ HANDLE ERROR FROM N8N
+    if (data.status === "error") {
+      status.innerText = "❌ " + data.message;
+      return;
+    }
+
+    // ✅ SUCCESS CASE
+    status.innerText = "✅ Study plan sent to your email 📩";
+
+  } catch (error) {
+    console.error(error);
+    status.innerText = "❌ Server not reachable";
+  }
+}
+</script>
+
+</body>
+</html>
