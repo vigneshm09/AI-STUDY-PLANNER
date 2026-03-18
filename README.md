@@ -105,7 +105,7 @@ Backend:
 ## 📸 Project Screenshots
 
 ### Web Interface
-![UI](UI.png)
+![UI](ui.png)
 
 ### Workflow
 ![Workflow](workflow.png)
