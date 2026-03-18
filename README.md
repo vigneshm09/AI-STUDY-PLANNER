@@ -102,6 +102,16 @@ Backend:
 
 ---
 
+## 📸 Project Screenshots
+
+### Web Interface
+![UI](UI.png)
+
+### Workflow
+![Workflow](workflow.png)
+
+---
+
 ## ▶️ How to Run
 
 ### 1. Start n8n
