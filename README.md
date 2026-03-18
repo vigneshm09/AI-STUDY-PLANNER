@@ -110,6 +110,9 @@ Backend:
 ### Workflow
 ![Workflow](workflow.png)
 
+### Output(E-mail)
+![E-mail Output](output.png)
+
 ---
 
 ## ▶️ How to Run
