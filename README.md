@@ -29,7 +29,6 @@ The system:
 * ⚙️ Automated workflow using n8n
 * 🧾 Data storage using Google Sheets
 * 🌐 Simple web interface
-* ❌ No PDF generation (simplified system)
 
 ---
 
